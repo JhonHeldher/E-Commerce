@@ -5,6 +5,7 @@ import '../globals.css'
 
 import LeftSideBar from '@/components/layout/LeftSideBar'
 import TopBar from '@/components/layout/TopBar'
+import { ToasterProvider } from '@/lib/ToasterProvider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,13 +29,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
+    
     <ClerkProvider>
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <div className="flex max-lg:flex-col text-gray-500">
-            <LeftSideBar />
+          <ToasterProvider />
+          <div className="flex max-lg:flex-col text-grey-1">
             <TopBar />
-            <div className='flex-1'>{children}</div>
+            <LeftSideBar />
+            <div className="flex-1">{children}</div>
           </div>
         </body>
       </html>
