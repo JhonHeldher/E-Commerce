@@ -22,6 +22,8 @@ import ImageUpload from "../custom ui/ImageUpload"
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import Delete from "../custom ui/Delete";
+import { X } from 'lucide-react';
+
 
 
 const formSchema = z.object({
@@ -94,7 +96,17 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
             )}
 
             <Separator className="my-4 bg-gray-200 mb-15" />
-            <div className="border shadow-xl border-gray-200 rounded-md p-10">
+            <div className="relative border shadow-xl border-gray-200 rounded-md p-10">
+                <div className="absolute top-1 right-1 ">
+                    <Button
+                        type="button"
+                        onClick={() => router.push("/collections")}
+                        className='cursor-pointer border-none bg-transparent text-gray-500 hover:text-gray-600 transition-all shadow-none'
+
+                    >
+                        <X />
+                    </Button>
+                </div>
                 <Form
                     {...form}
 
@@ -118,6 +130,7 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
                                 </FormItem>
                             )}
                         />
+
                         <FormField
                             control={form.control}
                             name="description"
@@ -137,37 +150,29 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
                                 </FormItem>
                             )}
                         />
-                        <FormField
-                            control={form.control}
-                            name="image"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel><span>Image</span></FormLabel>
-                                    <FormControl>
-                                        <ImageUpload
-                                            value={field.value ? [field.value] : []}
-                                            onChange={(url) => field.onChange(url)}
-                                            onRemove={() => field.onChange("")}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <div className="max-w-50 flex justify-between">
+                        <div className="flex justify-between items-end">
+                            <FormField
+                                control={form.control}
+                                name="image"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel><span>Image</span></FormLabel>
+                                        <FormControl>
+                                            <ImageUpload
+                                                value={field.value ? [field.value] : []}
+                                                onChange={(url) => field.onChange(url)}
+                                                onRemove={() => field.onChange("")}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
                             <Button
                                 type="submit"
-                                className="cursor-pointer border-1 bg-blue-500 hover:bg-blue-600 text-white"
+                                className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white"
                             >
                                 <span>Submit</span>
-                            </Button>
-                            <Button
-                                type="button"
-                                onClick={() => router.push("/collections")}
-                                className='cursor-pointer border-1 gray-blue-500 bg-transparent text-gray-500 hover:border-gray-700 hover:text-gray-700 transition-all'
-
-                            >
-                                <span>Discard</span>
                             </Button>
                         </div>
                     </form>

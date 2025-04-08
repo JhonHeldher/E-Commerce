@@ -24,7 +24,7 @@ const TopBar = () => {
   return (
     <div className="sticky top-0 z-20 w-full flex justify-between items-center px-8 py-4 bg-white shadow-xl lg:hidden">
       <Image
-        src="/next.svg"
+        src="/log.svg"
         alt="logo"
         width={150}
         height={70}
@@ -35,7 +35,11 @@ const TopBar = () => {
           <Link
             href={link.url}
             key={link.label}
-            className={`flex gap-4 text-boby-medium ${isActive(link.url) ? "text-blue-600" : "text-gray-500"}`}
+            className={`flex gap-4 font-medium border-b-2 pb-1 ${
+              isActive(link.url) 
+              ? "text-blue-500 border-blue-500" 
+              : "text-gray-500 hover:text-black border-transparent hover:border-black"
+            }`}
           >
             <p>{link.label}</p>
           </Link>
@@ -48,12 +52,16 @@ const TopBar = () => {
           onClick={() => setDropdownMenu(!dropdownMenu)}
         />
         {dropdownMenu && (
-          <div className="absolute top-10 right-6 flex flex-col gap-8 p-5 bg-white shadow-xl rounded-lg">
+          <div className="absolute top-10 right-6 flex flex-col gap-8 p-5 pr-7 bg-white shadow-xl rounded-lg">
             {navLinks.map((link) => (
               <Link
                 href={link.url}
                 key={link.label}
-                className={`flex gap-4 text-boby-medium ${isActive(link.url) ? "text-blue-500" : "text-gray-500"}`}
+                className={`flex gap-4 font-medium border-b-2 pb-1 focus:outline-none select-none  ${
+                  isActive(link.url) 
+                  ? "text-blue-500 border-blue-500"  
+                  : "text-gray-500 hover:text-black border-transparent hover:border-black"
+                }`}
               >
                 {link.icon} <p>{link.label}</p>
               </Link>

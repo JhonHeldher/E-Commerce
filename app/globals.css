@@ -1,3 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+[data-slot="command-input-wrapper"] {
+    border-bottom: 0 !important;
+  }

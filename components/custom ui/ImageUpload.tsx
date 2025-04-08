@@ -1,6 +1,6 @@
 "use client"
 import { CldUploadWidget } from 'next-cloudinary';
-import { Plus, Trash } from 'lucide-react';
+import { ImageUp, Trash } from 'lucide-react';
 
 import { Button } from '../ui/button';
 import Image from "next/image";
@@ -57,7 +57,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, onRemove, value }) 
                             onClick={() => open()}
                             className='cursor-pointer w-50 border-2 border-blue-500 bg-transparent text-blue-500 hover:border-blue-700 hover:text-blue-600 transition-all'
                         >
-                            <Plus className='h-4 w-4' />
+                            <ImageUp className='h-4 w-4' />
                             <span className="mr-2">
                                 Upload Image
                             </span>
