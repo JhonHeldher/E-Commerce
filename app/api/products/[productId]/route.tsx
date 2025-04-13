@@ -27,5 +27,115 @@ export const GET = async (
     }
 };
 
+export const POST = async (
+    req: NextRequest,
+    { params }: { params: { productId: string } }
+) => {
+    try {
+        const userId = await currentUser();
+
+        if (!userId) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        await connectToDB();
+
+        // Aguarda os params serem resolvidos
+        const resolvedParams = await params;
+
+        const product = await Product.findById(resolvedParams.productId);
+
+        if (!product) {
+            return new NextResponse("Product not found", { status: 404 });
+        }
+
+        const { title, description, media, category, collections, tags, sizes, colors, price, expense } = await req.json();
+
+        if (!title || !description || !media || !category || !price || !expense) {
+            return new NextResponse("Not enough data to create a product", {
+                status: 400,
+            });
+        }
+
+        const addedCollections = collections.filter((collectionId: string) => !product.collections.includes(collectionId));
+        // included in new data, but not included in the previous data
+        const removedCollections = product.collections.filter((collectionId: string) => !collections.includes(collectionId));
+        // included in the previous data, but not included in the new data
+
+        await Promise.all([
+            // Update added collection with this product
+            ...addedCollections.map((collectionId: string) => 
+                Collection.findByIdAndUpdate(collectionId, {
+                    $push: { products: product._id }
+                })
+            ),
+            // Update removed collection without this product
+            ...removedCollections.map((collectionId: string) => 
+                Collection.findByIdAndUpdate(collectionId, {
+                    $pull: { products: product._id }
+                })
+            ),
+        ]);
+
+        // Update the product
+        const updatedProduct = await Product.findByIdAndUpdate(product._id, {
+            title,
+            description,
+            media,
+            category,
+            collections,
+            tags,
+            sizes,
+            colors,
+            price,
+            expense
+        }, { new: true }).populate({ path: "collections", model: "Collection" })
+
+        await updatedProduct.save();
+
+        return NextResponse.json(updatedProduct, { status: 201 });
+    } catch (err) {
+        console.log("[product_POST]", err);
+        return new NextResponse("Internal Server Error", { status: 500 });
+    }
+}
+
+export const DELETE = async (
+    req: NextRequest,
+    { params }: { params: { productId: string } }
+) => {
+    try {
+        const userId = await currentUser();
+
+        if (!userId) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        await connectToDB();
+
+        // Aguarda os params serem resolvidos
+        const resolvedParams = await params;
+
+        const product = await Product.findById(resolvedParams.productId);
+
+        if (!product) {
+            return new NextResponse(JSON.stringify({ message: "Product not found" }), { status: 404 });
+        }
+
+        await Product.findByIdAndDelete(product._id);
+
+        await Promise.all(product.collections.map((collectionId: string) => 
+            Collection.findByIdAndUpdate(collectionId, {
+                $pull: { products: product._id }
+            })
+        ));
+
+        return new NextResponse(JSON.stringify({ message: "Product deleted successfully" }), { status: 200 });
+
+    } catch (err) {
+        console.log("[product_DELETE]", err);
+        return new NextResponse("Internal Server Error", { status: 500 });
+    }
+};
 
 export const dynamic = "force-dynamic";
