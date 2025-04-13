@@ -30,45 +30,45 @@ const TopBar = () => {
         height={70}
       />
 
-      <div className="flex gap-8 max-md:hidden">
-        {navLinks.map((link) => (
-          <Link
-            href={link.url}
-            key={link.label}
-            className={`flex gap-4 font-medium border-b-2 pb-1 ${
-              isActive(link.url) 
-              ? "text-blue-500 border-blue-500" 
-              : "text-gray-500 hover:text-black border-transparent hover:border-black"
-            }`}
-          >
-            <p>{link.label}</p>
-          </Link>
-        ))}
-      </div>
-
-      <div className="relative flex gap-4 items-center">
-        <Menu
-          className="cursor-pointer md:hidden"
-          onClick={() => setDropdownMenu(!dropdownMenu)}
-        />
-        {dropdownMenu && (
-          <div className="absolute top-10 right-6 flex flex-col gap-8 p-5 pr-7 bg-white shadow-xl rounded-lg">
-            {navLinks.map((link) => (
-              <Link
-                href={link.url}
-                key={link.label}
-                className={`flex gap-4 font-medium border-b-2 pb-1 focus:outline-none select-none  ${
-                  isActive(link.url) 
-                  ? "text-blue-500 border-blue-500"  
+      <div className="flex gap-6 justify-between items-center">
+        <div className="flex gap-8 max-md:hidden">
+          {navLinks.map((link) => (
+            <Link
+              href={link.url}
+              key={link.label}
+              className={`flex gap-4 font-medium border-b-2 pb-1 ${isActive(link.url)
+                  ? "text-blue-500 border-blue-500"
                   : "text-gray-500 hover:text-black border-transparent hover:border-black"
                 }`}
-              >
-                {link.icon} <p>{link.label}</p>
-              </Link>
-            ))}
-          </div>
-        )}
-        <UserButton />
+            >
+              <p>{link.label}</p>
+            </Link>
+          ))}
+        </div>
+
+        <div className="relative flex gap-4 items-center">
+          <Menu
+            className="cursor-pointer md:hidden"
+            onClick={() => setDropdownMenu(!dropdownMenu)}
+          />
+          {dropdownMenu && (
+            <div className="absolute top-10 right-6 flex flex-col gap-8 p-5 pr-7 bg-white shadow-xl rounded-lg">
+              {navLinks.map((link) => (
+                <Link
+                  href={link.url}
+                  key={link.label}
+                  className={`flex gap-4 font-medium border-b-2 pb-1 focus:outline-none select-none  ${isActive(link.url)
+                      ? "text-blue-500 border-blue-500"
+                      : "text-gray-500 hover:text-black border-transparent hover:border-black"
+                    }`}
+                >
+                  {link.icon} <p>{link.label}</p>
+                </Link>
+              ))}
+            </div>
+          )}
+          <UserButton />
+        </div>
       </div>
     </div>
   );

@@ -3,4 +3,8 @@
 
 [data-slot="command-input-wrapper"] {
     border-bottom: 0 !important;
-  }
+}
+/* 
+* {
+  border: 2px solid red !important;
+} */

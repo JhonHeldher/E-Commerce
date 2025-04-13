@@ -12,10 +12,10 @@ type ProductType = {
     description: string;
     media: [string];
     category: string;
-    collection: [string];
+    collections: [CollectionType];
     tags: [string];
-    size: [string];
-    color: [string];
+    sizes: [string];
+    colors: [string];
     price: number;
     expense: number;
     createdAt: Date;

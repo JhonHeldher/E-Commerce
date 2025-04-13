@@ -31,7 +31,6 @@ const formSchema = z.object({
     description: z.string().min(2).max(500).trim(),
     image: z.string(),
 });
-
 interface CollectionFormProps {
     initialData?: CollectionType | null
 }
@@ -85,6 +84,7 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
                         Edit Collection
                     </span>
                     <Delete
+                        item="collection"
                         iconType="trash" // or "delete"
                         id={initialData._id}
                     />
@@ -160,8 +160,12 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
                                         <FormControl>
                                             <ImageUpload
                                                 value={field.value ? [field.value] : []}
-                                                onChange={(url) => field.onChange(url)}
+                                                onChange={(urls) => {
+                                                    // Recebe um array, mas passa a primeira imagem (ou uma string vazia se o array estiver vazio)
+                                                    field.onChange(urls[0] || "");
+                                                }}
                                                 onRemove={() => field.onChange("")}
+                                                multiple={false}
                                             />
                                         </FormControl>
                                         <FormMessage />

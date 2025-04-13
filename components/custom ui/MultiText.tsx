@@ -19,15 +19,15 @@ const MultiText: React.FC<MultiTextProps> = ({
   const [inputValue, setInputValue] = useState("")
   const [error, setError] = useState("")
 
-  const addTag = (item: string) => {
-    const newTag = item.trim()
+  const addValue = (item: string) => {
+    const newValue = item.trim()
 
-    if (newTag === "" || value.includes(newTag)) {
-      setError(newTag === "" ? "Tag cannot be empty" : "Tag already added")
+    if (newValue === "" || value.includes(newValue)) {
+      setError(newValue === "" ? "Value cannot be empty" : "Value already added")
       return
     }
 
-    onChange(newTag)
+    onChange(newValue)
     setInputValue("")
     setError("")
   }
@@ -35,7 +35,7 @@ const MultiText: React.FC<MultiTextProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault()
-      addTag(inputValue)
+      addValue(inputValue)
     }
   }
 
@@ -46,7 +46,7 @@ const MultiText: React.FC<MultiTextProps> = ({
 
   const handleBlur = () => {
     if (inputValue.trim() === "") return
-    addTag(inputValue)
+    addValue(inputValue)
   }
 
   return (
@@ -66,16 +66,16 @@ const MultiText: React.FC<MultiTextProps> = ({
       />
       {error && <p className="text-red-500">{error}</p>}
       <div className="flex max-h-15 overflow-y-auto scrollbar-thin scrollbar-thumb-red-500 gap-1 flex-wrap mt-1">
-        {value.map((tag, index) => (
+        {value.map((item, index) => (
           <Badge
             key={index}
             className="
               flex items-center cursor-pointer 
               bg-gray-500 p-1 text-white hover:bg-gray-600
             "
-            onClick={() => onRemove(tag)}
+            onClick={() => onRemove(item)}
           >
-            {tag}
+            {item}
           </Badge>
         ))}
       </div>
