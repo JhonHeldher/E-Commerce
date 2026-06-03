@@ -25,9 +25,11 @@ const TopBar = () => {
     <div className="sticky top-0 z-20 w-full flex justify-between items-center px-8 py-4 bg-white shadow-xl lg:hidden">
       <Image
         src="/log.svg"
-        alt="logo"
-        width={150}
-        height={70}
+        alt="Logo"
+        width={150} 
+        height={70}  
+        priority 
+        style={{ height: "auto" }} 
       />
 
       <div className="flex gap-6 justify-between items-center">
@@ -37,8 +39,8 @@ const TopBar = () => {
               href={link.url}
               key={link.label}
               className={`flex gap-4 font-medium border-b-2 pb-1 ${isActive(link.url)
-                  ? "text-blue-500 border-blue-500"
-                  : "text-gray-500 hover:text-black border-transparent hover:border-black"
+                ? "text-blue-500 border-blue-500"
+                : "text-gray-500 hover:text-black border-transparent hover:border-black"
                 }`}
             >
               <p>{link.label}</p>
@@ -58,8 +60,8 @@ const TopBar = () => {
                   href={link.url}
                   key={link.label}
                   className={`flex gap-4 font-medium border-b-2 pb-1 focus:outline-none select-none  ${isActive(link.url)
-                      ? "text-blue-500 border-blue-500"
-                      : "text-gray-500 hover:text-black border-transparent hover:border-black"
+                    ? "text-blue-500 border-blue-500"
+                    : "text-gray-500 hover:text-black border-transparent hover:border-black"
                     }`}
                 >
                   {link.icon} <p>{link.label}</p>
