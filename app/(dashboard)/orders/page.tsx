@@ -2,8 +2,13 @@ import { DataTable } from "@/components/custom ui/DataTable"
 import { columns } from "@/components/orders/OrderColumns"
 import { Separator } from "@/components/ui/separator"
 
+export const dynamic = "force-dynamic"
+
 const Orders = async () => {
-    const res = await fetch("http://localhost:3000/api/orders")
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/orders`,
+        { cache: 'no-store' }
+    )
     const orders = await res.json()
 
     return (

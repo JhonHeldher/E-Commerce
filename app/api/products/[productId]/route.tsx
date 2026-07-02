@@ -7,7 +7,7 @@ import Collection from "@/lib/models/Collection";
 
 export const GET = async (
     req: NextRequest,
-    { params }: { params: { productId: string } }
+    { params }: { params: Promise<{ productId: string }> }
 ) => {
     try {
         // Aguarda os params serem resolvidos
@@ -29,7 +29,7 @@ export const GET = async (
 
 export const POST = async (
     req: NextRequest,
-    { params }: { params: { productId: string } }
+    { params }: { params: Promise<{ productId: string }> }
 ) => {
     try {
         const userId = await currentUser();
@@ -102,7 +102,7 @@ export const POST = async (
 
 export const DELETE = async (
     req: NextRequest,
-    { params }: { params: { productId: string } }
+    { params }: { params: Promise<{ productId: string }> }
 ) => {
     try {
         const userId = await currentUser();

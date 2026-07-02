@@ -7,7 +7,7 @@ import Product from "@/lib/models/Product";
 
 export const GET = async (
   req: NextRequest,
-  { params }: { params: { collectionId: string } }
+  { params }: { params: Promise<{ collectionId: string }> }
 ) => {
   try {
     // Aguarda os params serem resolvidos
@@ -32,7 +32,7 @@ export const GET = async (
 
 export const POST = async (
   req: NextRequest,
-  { params }: { params: { collectionId: string } }
+  { params }: { params: Promise<{ collectionId: string }> }
 ) => {
   try {
     const userId = await currentUser();
@@ -75,7 +75,7 @@ export const POST = async (
 
 export const DELETE = async (
   req: NextRequest,
-  { params }: { params: { collectionId: string } }
+  { params }: { params: Promise<{ collectionId: string }> }
 ) => {
   try {
     const userId = await currentUser();

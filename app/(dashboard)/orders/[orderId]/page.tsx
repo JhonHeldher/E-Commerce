@@ -1,12 +1,11 @@
 import React from 'react'
 
-const OrderDetails = async ({ params }: { params: { orderId: string } }) => {
-    // 1. Aguarda a Promise de params e extrai orderId
-    const { orderId } = await params;                     
+const OrderDetails = async ({ params }: { params: Promise<{ orderId: string }> }) => {
+    const { orderId } = await params;
 
-    // 2. Faz o fetch usando o orderId
     const res = await fetch(
-        `http://localhost:3000/api/orders/${orderId}`
+        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/orders/${orderId}`,
+        { cache: 'no-store' }
     ); 
     const { orderDetails, customer } = await res.json()
 
