@@ -1,3 +1,5 @@
+import { DataTable } from "@/components/custom ui/DataTable"
+import { columns } from "@/components/orderItems/OrderItemsColums"
 import React from 'react'
 
 const OrderDetails = async ({ params }: { params: Promise<{ orderId: string }> }) => {
@@ -29,6 +31,8 @@ const OrderDetails = async ({ params }: { params: Promise<{ orderId: string }> }
             <span className="text-[20px] text-gray-500 font-bold">Shipping rate ID:
                 <span className="text-black font-semibold"> {orderDetails.shippingRate}</span>
             </span>
+
+            <DataTable columns={columns} data={orderDetails.products} searchKey="product" />
         </div>
     )
 }

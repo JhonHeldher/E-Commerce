@@ -80,7 +80,7 @@ const corsHeaders = {
 
 export async function OPTIONS() {
     return new NextResponse(null, { 
-        status: 204, // 204 No Content é o padrão ideal para requisições OPTIONS
+        status: 204, 
         headers: corsHeaders 
     });
 }
@@ -127,7 +127,7 @@ export async function POST(req: NextRequest) {
         console.log("[checkout_POST]", err);
         return new NextResponse("Internal Server Error", { 
             status: 500, 
-            headers: corsHeaders // <-- ADICIONE ISSO AQUI TAMBÉM
+            headers: corsHeaders 
         });
     }
 
