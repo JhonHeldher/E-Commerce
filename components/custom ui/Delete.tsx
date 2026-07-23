@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react";
-import { Trash, Delete as DeleteIcon } from "lucide-react";
+import { Trash2, Delete as DeleteIcon } from "lucide-react";
 
 import {
   AlertDialog,
@@ -45,38 +45,33 @@ const Delete: React.FC<DeleteProps> = ({ item, id, iconType = "trash" }) => {
     }
   };
 
-  const Icon = iconType === "trash" ? Trash : DeleteIcon;
+  const Icon = iconType === "trash" ? Trash2 : DeleteIcon;
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
           type="button"
-          size="sm"
-          className="
-            cursor-pointer m-1 border-2 border-transparent 
-            text-gray-500 transition-all duration-300 
-            hover:border-red-500 hover:text-red-500
-          "
+          size="icon"
+          variant="ghost" 
+          className="h-8 w-8 text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
         >
           <Icon className="h-4 w-4" />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-white">
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-red-500">
-            <span>Are you absolutely sure?</span>
+          <AlertDialogTitle className="text-red-600">
+            Are you absolutely sure?
           </AlertDialogTitle>
           <AlertDialogDescription>
-            <span>This action cannot be undone. This will permanently delete your {item}.</span>
+            This action cannot be undone. This will permanently delete your {item}.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>
-            <span>Cancel</span>
-          </AlertDialogCancel>
-          <AlertDialogAction onClick={onDelete} className="bg-red-500 text-white">
-            <span>Delete</span>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={onDelete} className="bg-red-600 hover:bg-red-700 text-white">
+            Delete
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

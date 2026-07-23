@@ -7,28 +7,24 @@ import Product from "@/lib/models/Product";
 
 export const GET = async (
   req: NextRequest,
-  { params }: { params: Promise<{ collectionId: string }> }
+  { params }: { params: Promise<{ productId: string }> }
 ) => {
   try {
-    // Aguarda os params serem resolvidos
     const resolvedParams = await params;
     await connectToDB();
 
-    const collection = await Collection.findById(resolvedParams.collectionId);
+    const product = await Product.findById(resolvedParams.productId).populate({ path: "collections", model: "Collection" });
 
-    if (!collection) {
-      return new NextResponse(JSON.stringify({ message: "Collection not found" }), { status: 404 });
+    if (!product) {
+      return new NextResponse(JSON.stringify({ message: "Product not found" }), { status: 404 });
     }
 
-    return NextResponse.json(collection, { status: 200 });
+    return NextResponse.json(product, { status: 200 });
   } catch (err) {
-    console.log("[collection_GET]", err);
+    console.log("[product_GET]", err);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 };
-
-
-
 
 export const POST = async (
   req: NextRequest,

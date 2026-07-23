@@ -34,9 +34,9 @@ const Products = () => {
   }, [])
 
   return loading ? <Loader /> : (
-    <div className='px-10 py-5'>
+    <div className="px-10 py-8 max-w-7xl mx-auto max-sm:px-4">
       <div className="flex items-center justify-between">
-        <p className="text-[30px] text-gray-500 font-bold">Products</p>
+        <p className="text-3xl text-gray-800 font-bold tracking-tight">Products</p>
         <Button
           onClick={() => router.push("/products/new")}
           className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white"
@@ -47,7 +47,7 @@ const Products = () => {
           </span>
         </Button>
       </div>
-      <Separator className="my-4 bg-gray-200" />
+      <Separator className="my-5 bg-gray-200" />
       <DataTable columns={columns} data={products} searchKey="title" />
     </div>
   )

@@ -37,7 +37,7 @@ type OrderItemType = {
     quantity: number;
 }
 
-type CustomerType = {
+type CustomerColumnType = {
     clerkId: string;
     name: string;
     email: string;

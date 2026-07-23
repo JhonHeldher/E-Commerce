@@ -11,10 +11,12 @@ export const columns: ColumnDef<CollectionType>[] = [
     cell: ({ row }) => (
       <Link
         href={`/collections/${row.original._id}`}
-        className="hover:text-black hover:border-b-2 hover:border-blue-700 pb-1"
+        className="hover:text-black hover:border-b-2 hover:border-blue-700 pb-1 font-medium transition-colors"
+
       >
         {row.original.title}
-      </Link>),
+      </Link>
+    ),
   },
   {
     accessorKey: "products",
@@ -23,11 +25,15 @@ export const columns: ColumnDef<CollectionType>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <
-      Delete
-      item="collection"
-      iconType="delete" // or "trash"
-      id={row.original._id}
-    />
+    header: () => <div className="text-center">Actions</div>,
+    cell: ({ row }) => (
+      <div className="flex justify-center">
+        <Delete
+          item="collection"
+          iconType="trash"
+          id={row.original._id}
+        />
+      </div>
+    )
   }
 ]

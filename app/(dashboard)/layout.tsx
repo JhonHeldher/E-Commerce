@@ -3,6 +3,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { Geist, Geist_Mono } from 'next/font/google'
 import '../globals.css'
 
+
 import LeftSideBar from '@/components/layout/LeftSideBar'
 import TopBar from '@/components/layout/TopBar'
 import { ToasterProvider } from '@/lib/ToasterProvider'
@@ -22,17 +23,16 @@ export const metadata: Metadata = {
   description: 'Admin dashboard to manage E-Commerce',
 }
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    
     <ClerkProvider>
       <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* Adicionamos geistSans.className para FORÇAR a fonte moderna no app inteiro */}
+        <body className={`${geistSans.variable} ${geistMono.variable} ${geistSans.className} antialiased`}>
           <ToasterProvider />
           <div className="flex max-lg:flex-col text-grey-1">
             <TopBar />
